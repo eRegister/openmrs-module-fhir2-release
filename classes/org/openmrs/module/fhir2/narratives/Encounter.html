@@ -1,0 +1,348 @@
+<!--/*
+This top section is not exported as a part of the Narrative,
+it is only present so that this template can be viewed in
+a browser.
+-->
+<html>
+
+<head>
+    <link rel="stylesheet" type="text/css" href="narrative.css"/>
+</head>
+
+<body>
+<!--*/-->
+
+<div>
+    <table class="hapiPropertyTable" th:if="${not resource.empty}">
+        <tbody>
+        <tr th:if="${resource.id}">
+            <td th:text="(#{narrative.propertyName.id} ?: 'Id') + ':'"></td>
+            <td th:text="${resource.id}"></td>
+        </tr>
+        <tr th:if="${not resource.identifier.empty}">
+            <td th:text="(#{narrative.propertyName.identifier} ?: 'Identifier') + ':'"></td>
+            <td>
+                <th:block th:each="identifier: ${resource.identifier}">
+                    <div th:narrative="${identifier}"></div>
+                </th:block>
+            </td>
+        </tr>
+        <tr th:if="${resource.status}">
+            <td th:text="(#{narrative.propertyName.status} ?: 'Status') + ':'"></td>
+            <td th:text="${resource.status}"></td>
+        </tr>
+        <tr th:if="${not resource.statusHistory.empty}">
+            <td th:text="(#{narrative.propertyName.statusHistory} ?: 'Status History') + ':'"></td>
+            <td>
+                <table class="subPropertyTable">
+                    <tbody>
+                    <tr>
+                        <th>-</th>
+                        <th th:text="(#{narrative.propertyName.status} ?: 'Status') + ':'"></th>
+                        <th th:text="(#{narrative.propertyName.period} ?: 'Period') + ':'"></th>
+                    </tr>
+                    <tr th:each="statusHistory, statusHistoryItr: ${resource.statusHistory}">
+                        <td th:text="${statusHistoryItr.count}"></td>
+                        <td th:text="${statusHistory.status}"></td>
+                        <td th:narrative="${statusHistory.period}"></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        <tr th:if="${not resource.class_.empty}">
+            <td th:text="(#{narrative.propertyName.class} ?: 'Class') + ':'"></td>
+            <td th:narrative="${resource.class_}"></td>
+        </tr>
+        <tr th:if="${not resource.classHistory.empty}">
+            <td th:text="(#{narrative.propertyName.classHistory} ?: 'Class History') + ':'"></td>
+            <td>
+                <table class="subPropertyTable">
+                    <tbody>
+                    <tr>
+                        <th>-</th>
+                        <th th:text="(#{narrative.propertyName.class} ?: 'Class')"></th>
+                        <th th:text="(#{narrative.propertyName.period} ?: 'Period')"></th>
+                    </tr>
+                    <tr th:each="classHistory, classHistoryItr: ${resource.classHistory}">
+                        <td th:text="${classHistoryItr.count}"></td>
+                        <td th:narrative="${classHistory.class}"></td>
+                        <td th:narrative="${classHistory.period}"></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        <tr th:if="${not resource.type.empty}">
+            <td th:text="(#{narrative.propertyName.type} ?: 'Type') + ':'"></td>
+            <td>
+                <th:block th:each="type: ${resource.type}">
+                    <th:block th:narrative="${type}"></th:block>
+                </th:block>
+            </td>
+        </tr>
+        <th:block th:unless="${fhirVersion} eq 'DSTU3'">
+            <tr th:if="${not resource.serviceType.empty}">
+                <td th:text="(#{narrative.propertyName.serviceType} ?: 'Service Type') + ':'"></td>
+                <td th:narrative="${resource.serviceType}"></td>
+            </tr>
+        </th:block>
+        <tr th:if="${not resource.priority.empty}">
+            <td th:text="(#{narrative.propertyName.priority} ?: 'Priority') + ':'"></td>
+            <td th:narrative="${resource.priority}"></td>
+        </tr>
+        <tr th:if="${not resource.subject.empty}">
+            <td th:text="(#{narrative.propertyName.subject} ?: 'Subject') + ':'"></td>
+            <td th:narrative="${resource.subject}"></td>
+        </tr>
+        <tr th:if="${not resource.episodeOfCare.empty}">
+            <td th:text="(#{narrative.propertyName.episodeOfCare} ?: 'Episode Of Care') + ':'"></td>
+            <td>
+                <th:block th:each="episodeOfCare, episodeOfCareItr: ${resource.episodeOfCare}">
+                    <th:block th:if="${episodeOfCareItr.index}">,</th:block>
+                    <th:block th:narrative="${episodeOfCare}"></th:block>
+                </th:block>
+            </td>
+        </tr>
+        <th:block th:unless="${fhirVersion} eq 'DSTU3'">
+            <tr th:if="${not resource.basedOn.empty}">
+                <td th:text="(#{narrative.propertyName.basedOn} ?: 'Based On') + ':'"></td>
+                <td>
+                    <th:block th:each="basedOn, basedOnItr: ${resource.basedOn}">
+                        <th:block th:if="${basedOnItr.index}">,</th:block>
+                        <th:block th:narrative="${basedOn}"></th:block>
+                    </th:block>
+                </td>
+            </tr>
+        </th:block>
+        <th:block th:if="${fhirVersion} eq 'DSTU3'">
+            <tr th:if="${not resource.incomingReferral.empty}">
+                <td th:text="(#{narrative.propertyName.incomingReferral} ?: 'Incoming Referral') + ':'"></td>
+                <td>
+                    <th:block th:each="incomingReferral, incomingReferralItr: ${resource.incomingReferral}">
+                        <th:block th:if="${incomingReferralItr.index}">,</th:block>
+                        <th:block th:narrative="${incomingReferral}"></th:block>
+                    </th:block>
+                </td>
+            </tr>
+        </th:block>
+        <tr th:if="${not resource.participant.empty}">
+            <td th:text="(#{narrative.propertyName.participants} ?: 'Participants') + ':'"></td>
+            <td>
+                <table class="subPropertyTable">
+                    <tbody>
+                    <tr>
+                        <th>-</th>
+                        <th th:text="(#{narrative.propertyName.type} ?: 'Type')"></th>
+                        <th th:text="(#{narrative.propertyName.period} ?: 'Period')"></th>
+                        <th th:text="(#{narrative.propertyName.individual} ?: 'Individual')"></th>
+                    </tr>
+                    <tr th:each="participant, participantItr: ${resource.participant}">
+                        <td th:text="${participantItr.count}"></td>
+                        <td>
+                            <th:block th:each="participantType, participantTypeItr: ${participant.type}">
+                                <th:block th:if="${participantTypeItr.index}">,</th:block>
+                                <th:block th:narrative="${participantType}"></th:block>
+                            </th:block>
+                        </td>
+                        <td>
+                            <th:block th:if="${participant.period}">
+                                <th:block th:narrative="${participant.period}"></th:block>
+                            </th:block>
+                        </td>
+                        <td>
+                            <th:block th:if="${participant.individual}">
+                                <th:block th:narrative="${participant.individual}"></th:block>
+                            </th:block>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        <tr th:if="${not resource.appointment.empty}">
+            <td th:text="(#{narrative.propertyName.appointment} ?: 'Appointment') + ':'"></td>
+            <td>
+                <th:block th:each="appointment, appointmentItr: ${resource.appointment}">
+                    <th:block th:if="${appointmentItr.index}">,</th:block>
+                    <th:block th:narrative="${appointment}"></th:block>
+                </th:block>
+            </td>
+        </tr>
+        <tr th:if="${not resource.period.empty}">
+            <td th:text="(#{narrative.propertyName.period} ?: 'Period') + ':'"></td>
+            <td th:narrative="${resource.period}"></td>
+        </tr>
+        <tr th:if="${not resource.length.empty}">
+            <td th:text="(#{narrative.propertyName.length} ?: 'Length') + ':'"></td>
+            <td th:narrative="${resource.length}"></td>
+        </tr>
+        <th:block th:unless="${fhirVersion} eq 'DSTU3'">
+            <tr th:if="${not resource.reasonCode.empty}">
+                <td th:text="(#{narrative.propertyName.reasonCode} ?: 'Reason Code') + ':'"></td>
+                <td>
+                    <th:block th:each="reasonCode, reasonCodeItr: ${resource.reasonCode}">
+                        <th:block th:if="${reasonCodeItr.index}">,</th:block>
+                        <th:block th:narrative="${reasonCode}"></th:block>
+                    </th:block>
+                </td>
+            </tr>
+            <tr th:if="${not resource.reasonReference.empty}">
+                <td th:text="(#{narrative.propertyName.reasonReference} ?: 'Reason Reference') + ':'"></td>
+                <td>
+                    <th:block th:each="reasonReference, reasonRefItr: ${resource.reasonReference}">
+                        <th:block th:if="${reasonRefItr.index}">,</th:block>
+                        <th:block th:narrative="${reasonReference}"></th:block>
+                    </th:block>
+                </td>
+            </tr>
+        </th:block>
+        <tr th:if="${not resource.diagnosis.empty}">
+            <td th:text="(#{narrative.propertyName.diagnosis} ?: 'Diagnosis') + ':'"></td>
+            <td>
+                <table class="subPropertyTable">
+                    <tbody>
+                    <tr>
+                        <th>-</th>
+                        <th th:text="(#{narrative.propertyName.condition} ?: 'Condition')"></th>
+                        <th:block th:unless="${fhirVersion} eq 'DSTU3'">
+                            <th th:text="(#{narrative.propertyName.use} ?: 'Use')"></th>
+                        </th:block>
+                        <th th:text="(#{narrative.propertyName.rank} ?: 'Rank')"></th>
+                    </tr>
+                    <tr th:each="diagnosis, diagnosisItr: ${resource.diagnosis}">
+                        <td th:text="${diagnosisItr.count}"></td>
+                        <td th:narrative="${diagnosis.condition}"></td>
+                        <th:block th:unless="${fhirVersion} eq 'DSTU3'">
+                            <td>
+                                <th:block th:if="${diagnosis.use}" th:narrative="${diagnosis.use}"></th:block>
+                            </td>
+                        </th:block>
+                        <td>
+                            <th:block th:if="${diagnosis.rank}" th:text="${diagnosis.rank}"></th:block>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        <tr th:if="${not resource.account.empty}">
+            <td th:text="(#{narrative.propertyName.account} ?: 'Account') + ':'"></td>
+            <td>
+                <th:block th:each="account, accountItr: ${resource.account}">
+                    <th:block th:if="${accountItr.index}">,</th:block>
+                    <th:block th:narrative="${account}"></th:block>
+                </th:block>
+            </td>
+        </tr>
+        <th:block th:if="${not resource.hospitalization.empty}">
+            <tr>
+                <td><h3 th:text="(#{narrative.propertyName.hospitalization} ?: 'Hospitalization') + ':'"></h3></td>
+                <td></td>
+            </tr>
+            <tr th:if="${not resource.hospitalization.preAdmissionIdentifier.empty}">
+                <td th:text="(#{narrative.propertyName.preAdmissionIdentifier} ?: 'Pre Admission Identifier') + ':'"></td>
+                <td th:narrative="${resource.hospitalization.preAdmissionIdentifier}"></td>
+            </tr>
+            <tr th:if="${not resource.hospitalization.origin.empty}">
+                <td th:text="(#{narrative.propertyName.origin} ?: 'Origin') + ':'"></td>
+                <td th:narrative="${resource.hospitalization.origin}"></td>
+            </tr>
+            <tr th:if="${resource.hospitalization.admitSource}">
+                <td th:text="(#{narrative.propertyName.admitSource} ?: 'Admit Source') + ':'"></td>
+                <td th:narrative="${resource.hospitalization.admitSource}"></td>
+            </tr>
+            <tr th:if="${resource.hospitalization.reAdmission}">
+                <td th:text="(#{narrative.propertyName.reAdmission} ?: 'Re Admission') + ':'"></td>
+                <td th:narrative="${resource.hospitalization.reAdmission}"></td>
+            </tr>
+            <tr th:if="${resource.hospitalization.dietPreference}">
+                <td th:text="(#{narrative.propertyName.dietPreference} ?: 'Diet Preference') + ':'"></td>
+                <td>
+                    <th:block
+                            th:each="dietPreference, dietPreferenceItr: ${resource.hospitalization.dietPreference}">
+                        <th:block th:if="${dietPreferenceItr.index}">,</th:block>
+                        <th:block th:narrative="${dietPreference}"></th:block>
+                    </th:block>
+                </td>
+            </tr>
+            <tr th:if="${resource.hospitalization.specialCourtesy}">
+                <td th:text="(#{narrative.propertyName.specialCourtesy} ?: 'Special Courtesy') + ':'"></td>
+                <td>
+                    <th:block
+                            th:each="specialCourtesy, specialCourtesyItr: ${resource.hospitalization.specialCourtesy}">
+                        <th:block th:if="${specialCourtesyItr.index}">,</th:block>
+                        <th:block th:narrative="${specialCourtesy}"></th:block>
+                    </th:block>
+                </td>
+            </tr>
+            <tr th:if="${resource.hospitalization.specialArrangement}">
+                <td th:text="(#{narrative.propertyName.specialArrangement} ?: 'Special Arrangement') + ':'"></td>
+                <td>
+                    <th:block
+                            th:each="specialArrangement, specialArrangementItr: ${resource.hospitalization.specialArrangement}">
+                        <th:block th:if="${specialArrangementItr.index}">,</th:block>
+                        <th:block th:narrative="${specialArrangement}"></th:block>
+                    </th:block>
+                </td>
+            </tr>
+            <tr th:if="${not resource.hospitalization.destination.empty}">
+                <td th:text="(#{narrative.propertyName.destination} ?: 'Destination') + ':'"></td>
+                <td th:narrative="${resource.hospitalization.destination}"></td>
+            </tr>
+            <tr th:if="${resource.hospitalization.dischargeDisposition}">
+                <td th:text="(#{narrative.propertyName.dischargeDisposition} ?: 'Discharge Disposition') + ':'"></td>
+                <td th:narrative="${resource.hospitalization.dischargeDisposition}"></td>
+            </tr>
+        </th:block>
+        <tr th:if="${not resource.location.empty}">
+            <td th:text="(#{narrative.propertyName.location} ?: 'Location') + ':'"></td>
+            <td>
+                <table class="subPropertyTable">
+                    <tbody>
+                    <tr>
+                        <th>-</th>
+                        <th th:text="(#{narrative.propertyName.location} ?: 'Location')"></th>
+                        <th th:text="(#{narrative.propertyName.status} ?: 'Status')"></th>
+                        <th:block th:unless="${fhirVersion} eq 'DSTU3'">
+                            <th th:text="(#{narrative.propertyName.physicalType} ?: 'Physical Type')"></th>
+                        </th:block>
+                        <th th:text="(#{narrative.propertyName.period} ?: 'Period')"></th>
+                    </tr>
+                    <tr th:each="location, locationItr: ${resource.location}">
+                        <td th:text="${locationItr.count}"></td>
+                        <td th:narrative="${location.location}"></td>
+                        <td>
+                            <th:block th:if="${location.status}" th:text="${location.status}"></th:block>
+                        </td>
+                        <th:block th:unless="${fhirVersion} eq 'DSTU3'">
+                            <td>
+                                <th:block th:if="${location.physicalType}"
+                                          th:narrative="${location.physicalType}"></th:block>
+                            </td>
+                        </th:block>
+                        <td>
+                            <th:block th:if="${location.period}" th:narrative="${location.period}"></th:block>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        <tr th:if="${not resource.serviceProvider.empty}">
+            <td th:text="(#{narrative.propertyName.serviceProvider} ?: 'Service Provider') + ':'"></td>
+            <td th:narrative="${resource.serviceProvider}"></td>
+        </tr>
+        <tr th:if="${not resource.partOf.empty}">
+            <td th:text="(#{narrative.propertyName.partOf} ?: 'Part Of') + ':'"></td>
+            <td th:narrative="${resource.partOf}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<!--/*-->
+</body>
+
+</html>
+<!--*/-->

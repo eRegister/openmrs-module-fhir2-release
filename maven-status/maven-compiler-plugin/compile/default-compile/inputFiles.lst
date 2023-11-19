@@ -1,0 +1,14 @@
+/var/lib/jenkins/workspace/openmrs-module-fhir2/omod/src/main/java/org/openmrs/module/fhir2/web/util/SummaryInterceptor.java
+/var/lib/jenkins/workspace/openmrs-module-fhir2/omod/src/main/java/org/openmrs/module/fhir2/narrative/OpenmrsMessageResolver.java
+/var/lib/jenkins/workspace/openmrs-module-fhir2/omod/src/main/java/org/openmrs/module/fhir2/web/authentication/RequireAuthenticationInterceptor.java
+/var/lib/jenkins/workspace/openmrs-module-fhir2/omod/src/main/java/org/openmrs/module/fhir2/web/util/DisableCacheInterceptor.java
+/var/lib/jenkins/workspace/openmrs-module-fhir2/omod/src/main/java/org/openmrs/module/fhir2/web/util/NarrativeUtils.java
+/var/lib/jenkins/workspace/openmrs-module-fhir2/omod/src/main/java/org/openmrs/module/fhir2/web/filter/AuthenticationFilter.java
+/var/lib/jenkins/workspace/openmrs-module-fhir2/omod/src/main/java/org/openmrs/module/fhir2/narrative/OpenmrsThymeleafNarrativeGenerator.java
+/var/lib/jenkins/workspace/openmrs-module-fhir2/omod/src/main/java/org/openmrs/module/fhir2/narrative/OpenmrsNarrativeTemplateManifest.java
+/var/lib/jenkins/workspace/openmrs-module-fhir2/omod/src/main/java/org/openmrs/module/fhir2/narrative/OpenmrsNarrativeTemplate.java
+/var/lib/jenkins/workspace/openmrs-module-fhir2/omod/src/main/java/org/openmrs/module/fhir2/web/util/FhirVersionUtils.java
+/var/lib/jenkins/workspace/openmrs-module-fhir2/omod/src/main/java/org/openmrs/module/fhir2/web/util/OpenmrsFhirAddressStrategy.java
+/var/lib/jenkins/workspace/openmrs-module-fhir2/omod/src/main/java/org/openmrs/module/fhir2/web/servlet/FhirRestServlet.java
+/var/lib/jenkins/workspace/openmrs-module-fhir2/omod/src/main/java/org/openmrs/module/fhir2/web/filter/ForwardingFilter.java
+/var/lib/jenkins/workspace/openmrs-module-fhir2/omod/src/main/java/org/openmrs/module/fhir2/web/servlet/FhirR3RestServlet.java

@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    This Source Code Form is subject to the terms of the Mozilla Public License,
+    v. 2.0. If a copy of the MPL was not distributed with this file, You can
+    obtain one at http://mozilla.org/MPL/2.0/. OpenMRS is also distributed under
+    the terms of the Healthcare Disclaimer located at http://openmrs.org/license.
+
+    Copyright (C) OpenMRS Inc. OpenMRS is a registered trademark and the OpenMRS
+    graphic logo is a trademark of OpenMRS Inc.
+-->
+<!DOCTYPE module PUBLIC "-//OpenMRS//DTD OpenMRS Config 1.0//EN"
+		"https://resources.openmrs.org/doctype/config-1.6.dtd">
+<module configVersion="1.6">
+	
+	<!-- Base Module Properties -->
+	<id>fhir2</id>
+	<name>FHIR2</name>
+	<version>1.9.0-SNAPSHOT</version>
+	<package>org.openmrs.module.fhir2</package>
+	<author>OpenMRS FHIR Squad</author>
+	<description>
+			Implementation of FHIR R4 for OpenMRS
+	</description>
+
+	<activator>org.openmrs.module.fhir2.FhirActivator</activator>
+	
+	<!-- <updateURL>https://modules.openmrs.org/modules/download/@MODULE_ID@/update.rdf</updateURL> -->
+	<!-- /Base Module Properties -->
+	
+	<require_version>2.0.5 - 2.*</require_version>
+
+    <conditionalResources>
+		<conditionalResource>
+			<path>/lib/fhir2-api-2.1-1.9.0-SNAPSHOT.jar</path>
+			<openmrsVersion>2.1.* - 9.*</openmrsVersion>
+		</conditionalResource>
+        <conditionalResource>
+            <path>/lib/fhir2-api-2.2-1.9.0-SNAPSHOT.jar</path>
+            <openmrsVersion>2.2.* - 9.*</openmrsVersion>
+        </conditionalResource>
+		<conditionalResource>
+			<path>/lib/fhir2-api-2.5-1.9.0-SNAPSHOT.jar</path>
+			<openmrsVersion>2.5.* - 9.*</openmrsVersion>
+		</conditionalResource>
+		<conditionalResource>
+			<path>/lib/fhir2-api-2.6-1.9.0-SNAPSHOT.jar</path>
+			<openmrsVersion>2.6.* - 9.*</openmrsVersion>
+		</conditionalResource>
+		<conditionalResource>
+			<path>/lib/jackson-.*.jar</path>
+			<openmrsVersion>2.0.5 - 2.1.2</openmrsVersion>
+		</conditionalResource>
+		<conditionalResource>
+			<path>/lib/commons-io.*.jar</path>
+			<openmrsVersion>2.0.5 - 2.1.*</openmrsVersion>
+		</conditionalResource>
+    </conditionalResources>
+
+
+	<aware_of_modules>
+		<aware_of_module>org.openmrs.module.legacyui</aware_of_module>
+	</aware_of_modules>
+
+	<servlet>
+		<servlet-name>fhir2Servlet</servlet-name>
+		<servlet-class>org.openmrs.module.fhir2.web.servlet.FhirRestServlet</servlet-class>
+	</servlet>
+
+	<servlet>
+		<servlet-name>fhir2R3Servlet</servlet-name>
+		<servlet-class>org.openmrs.module.fhir2.web.servlet.FhirR3RestServlet</servlet-class>
+	</servlet>
+
+	<filter>
+		<filter-name>fhir2AuthenticationFilter</filter-name>
+		<filter-class>org.openmrs.module.fhir2.web.filter.AuthenticationFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>fhir2AuthenticationFilter</filter-name>
+		<url-pattern>/ws/fhir2</url-pattern>
+		<url-pattern>/ws/fhir2/*</url-pattern>
+		<url-pattern>/ms/fhir2Servlet</url-pattern>
+		<url-pattern>/ms/fhir2Servlet/*</url-pattern>
+		<url-pattern>/ms/fhir2R3Servlet/*</url-pattern>
+	</filter-mapping>
+	<filter>
+		<filter-name>fhir2ForwardingFilter</filter-name>
+		<filter-class>org.openmrs.module.fhir2.web.filter.ForwardingFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>fhir2ForwardingFilter</filter-name>
+		<url-pattern>/ws/fhir2</url-pattern>
+		<url-pattern>/ws/fhir2/*</url-pattern>
+	</filter-mapping>
+
+	<!-- Internationalization -->
+	<!-- All message codes should start with @MODULE_ID@.* -->
+	<messages>
+		<lang>en</lang>
+		<file>messages.properties</file>
+	</messages>
+	<messages>
+		<lang>fr</lang>
+		<file>messages_fr.properties</file>
+	</messages>
+	<messages>
+		<lang>es</lang>
+		<file>messages_es.properties</file>
+	</messages>
+	<!-- /Internationalization -->
+	
+	<globalProperty>
+		<property>fhir2.uriPrefix</property>
+		<description>Prefix for the FHIR server in case this cannot be automatically detected</description>
+	</globalProperty>
+
+	<globalProperty>
+		<property>fhir2.personAttributeTypeUuid</property>
+		<defaultValue>14d4f066-15f5-102d-96e4-000c29c2a5d7</defaultValue>
+		<description>Set person attribute type uuid</description>
+	</globalProperty>
+
+	<globalProperty>
+		<property>fhir2.immunizationsEncounterTypeUuid</property>
+		<defaultValue>29c02aff-9a93-46c9-bf6f-48b552fcb1fa</defaultValue>
+		<description>Set immunizations encounter type uuid</description>
+	</globalProperty>
+
+	<globalProperty>
+		<property>fhir2.administeringEncounterRoleUuid</property>
+		<defaultValue>546cce2d-6d58-4097-ba92-206c1a2a0462</defaultValue>
+		<description>Set administering encounter role uuid</description>
+	</globalProperty>
+
+	<globalProperty>
+		<property>fhir2.paging.default</property>
+		<defaultValue>10</defaultValue>
+		<description>Set default page size</description>
+	</globalProperty>
+
+	<globalProperty>
+		<property>fhir2.paging.maximum</property>
+		<defaultValue>100</defaultValue>
+		<description>Set maximum page size</description>
+	</globalProperty>
+
+	<globalProperty>
+		<property>fhir2.personContactPointAttributeTypeUuid</property>
+		<defaultValue>c66d5786-60f1-4cdf-8292-77e601c007cb</defaultValue>
+		<description>Set person attribute type uuid</description>
+	</globalProperty>
+
+	<globalProperty>
+		<property>fhir2.locationContactPointAttributeTypeUuid</property>
+		<defaultValue>abcde432-1691-11df-97a5-7038c432abcd</defaultValue>
+		<description>Set location attribute type uuid</description>
+	</globalProperty>
+
+	<globalProperty>
+		<property>fhir2.providerContactPointAttributeTypeUuid</property>
+		<defaultValue>5021b1a1-e7f6-44b4-ba02-da2f2bcf8718</defaultValue>
+		<description>Set provider attribute type uuid</description>
+	</globalProperty>
+
+	<globalProperty>
+		<property>fhir2.narrativesOverridePropertyFile</property>
+		<description>Path of narrative override properties file</description>
+	</globalProperty>
+
+	<globalProperty>
+		<property>fhir2.locationTypeAttributeTypeUuid</property>
+		<description>The UUID for the Location Attribute Type representing the Location Type</description>
+	</globalProperty>
+
+</module>
